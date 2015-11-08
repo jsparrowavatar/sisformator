@@ -38,13 +38,13 @@
   };
 
   reformat = function() {
-    var author, content, d, dstr, full, j, k, l, len, num_sent, paragraph, ref, ref1, result, sep, simplified, title;
+    var author, content, d, dstr, essay, full, j, k, l, len, meta, num_sent, paragraph, ref, ref1, sep, simplified, title;
     title = document.getElementById('title').value;
     author = document.getElementById('author').value;
     sep = parseInt(document.getElementById('sep').value);
     simplified = document.getElementById('simplified').checked;
     full = document.getElementById('full').checked;
-    content = document.getElementById('original_text').value;
+    essay = document.getElementById('original_text').value;
     if (sep <= 0) {
       alert("寬度需大於0");
       return;
@@ -54,8 +54,9 @@
     }
     d = new Date;
     dstr = (d.getFullYear()) + "/" + (d.getMonth() + 1) + "/" + (d.getDate());
-    result = "　　　　　　　　　　　　【" + title + "】\n\n作者：" + author + "\n" + dstr + "發表於：首發SexinSex\n字数：" + content.length + "\n\n";
-    ref = content.split('\n');
+    meta = "　　　　　　　　　　　　【" + title + "】\n\n\n作者：" + author + "\n" + dstr + "發表於：首發SexInSex\n字数：" + essay.length + "\n\n";
+    content = "";
+    ref = essay.split('\n');
     for (k = 0, len = ref.length; k < len; k++) {
       paragraph = ref[k];
       paragraph = paragraph.trim();
@@ -68,18 +69,22 @@
         num_sent += 1;
       }
       for (j = l = 1, ref1 = num_sent; 1 <= ref1 ? l <= ref1 : l >= ref1; j = 1 <= ref1 ? ++l : --l) {
-        result += paragraph.slice((j - 1) * sep, j * sep) + '\n';
+        content += paragraph.slice((j - 1) * sep, j * sep) + '\n';
       }
-      result += '\n';
+      content += '\n';
     }
     if (simplified) {
-      result = toSimp(result);
+      meta = toSimp(meta);
     }
     if (full) {
-      result = toFull(result);
+      meta = toFull(meta);
     }
-    result = formal(result);
-    document.getElementById('result_text').value = result;
+    if (simplified) {
+      content = toSimp(content);
+    }
+    content = toFull(content);
+    content = formal(content);
+    return document.getElementById('result_text').value = meta + content;
   };
 
   window.reformat || (window.reformat = reformat);

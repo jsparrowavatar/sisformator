@@ -29,7 +29,7 @@ reformat = ->
     sep = parseInt(document.getElementById('sep').value)
     simplified = document.getElementById('simplified').checked
     full = document.getElementById('full').checked
-    content = document.getElementById('original_text').value
+    essay  = document.getElementById('original_text').value
     if sep<=0
         alert("寬度需大於0")
         return
@@ -37,8 +37,10 @@ reformat = ->
     title = '標題' if title==''
     d = new Date
     dstr = "#{d.getFullYear()}/#{d.getMonth()+1}/#{d.getDate()}"
-    result = "　　　　　　　　　　　　【#{title}】\n\n作者：#{author}\n#{dstr}發表於：首發SexinSex\n字数：#{content.length}\n\n"
-    for paragraph in content.split('\n')
+    meta = "　　　　　　　　　　　　【#{title}】\n\n\n作者：#{author}\n#{dstr}發表於：首發SexInSex\n字数：#{essay.length}\n\n"
+
+    content = ""
+    for paragraph in essay .split('\n')
         paragraph = paragraph.trim()
         if paragraph==''
             continue
@@ -46,12 +48,13 @@ reformat = ->
         num_sent = paragraph.length // sep
         num_sent += 1 if paragraph.length % sep != 0
         for j in [1..num_sent]
-            result += paragraph.slice((j-1) * sep, j * sep) + '\n'
-        result+='\n'
-    result = toSimp(result) if simplified
-    result = toFull(result) if full
-    result = formal(result)
-    document.getElementById('result_text').value = result
-    return
+            content += paragraph.slice((j-1) * sep, j * sep) + '\n'
+        content +='\n'
+    meta = toSimp(meta) if simplified
+    meta = toFull(meta) if full
+    content = toSimp(content) if simplified
+    content = toFull(content)
+    content = formal(content)
+    document.getElementById('result_text').value = (meta+content)
 
 window.reformat or= reformat
