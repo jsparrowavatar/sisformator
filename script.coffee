@@ -30,11 +30,14 @@ reformat = ->
     simplified = document.getElementById('simplified').checked
     full = document.getElementById('full').checked
     content = document.getElementById('original_text').value
+    if sep<=0
+        alert("寬度需大於0")
+        return
 
     title = '標題' if title==''
     d = new Date
     dstr = "#{d.getFullYear()}/#{d.getMonth()+1}/#{d.getDate()}"
-    result = "【#{title}】\n\n作者：#{author}\n#{dstr}發表於：首發SexinSex\n字数：#{content.length}\n\n"
+    result = "　　　　　　　　　　　　【#{title}】\n\n作者：#{author}\n#{dstr}發表於：首發SexinSex\n字数：#{content.length}\n\n"
     for paragraph in content.split('\n')
         paragraph = paragraph.trim()
         if paragraph==''

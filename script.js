@@ -45,12 +45,16 @@
     simplified = document.getElementById('simplified').checked;
     full = document.getElementById('full').checked;
     content = document.getElementById('original_text').value;
+    if (sep <= 0) {
+      alert("寬度需大於0");
+      return;
+    }
     if (title === '') {
       title = '標題';
     }
     d = new Date;
     dstr = (d.getFullYear()) + "/" + (d.getMonth() + 1) + "/" + (d.getDate());
-    result = "【" + title + "】\n\n作者：" + author + "\n" + dstr + "發表於：首發SexinSex\n字数：" + content.length + "\n\n";
+    result = "　　　　　　　　　　　　【" + title + "】\n\n作者：" + author + "\n" + dstr + "發表於：首發SexinSex\n字数：" + content.length + "\n\n";
     ref = content.split('\n');
     for (k = 0, len = ref.length; k < len; k++) {
       paragraph = ref[k];
