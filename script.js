@@ -42,7 +42,7 @@
     title = document.getElementById('title').value;
     author = document.getElementById('author').value;
     sep = parseInt(document.getElementById('sep').value);
-    simplified = document.getElementById('simplified').checked;
+    simplified = document.getElementById('simplified').checked && toSimp;
     full = document.getElementById('full').checked;
     essay = document.getElementById('original_text').value;
     if (sep <= 0) {
