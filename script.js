@@ -38,11 +38,11 @@
   };
 
   reformat = function() {
-    var author, content, d, dstr, essay, full, j, k, l, len, meta, num_sent, paragraph, ref, ref1, sep, simplified, title;
+    var author, content, d, dstr, essay, full, j, k, l, len, meta, num_sent, pad, paragraph, ref, ref1, sep, simplified, title;
     title = document.getElementById('title').value;
     author = document.getElementById('author').value;
     sep = parseInt(document.getElementById('sep').value);
-    simplified = document.getElementById('simplified').checked && typeof(toSimp)!="undefined";
+    simplified = document.getElementById('simplified').checked;
     full = document.getElementById('full').checked;
     essay = document.getElementById('original_text').value;
     if (sep <= 0) {
@@ -54,7 +54,9 @@
     }
     d = new Date;
     dstr = (d.getFullYear()) + "/" + (d.getMonth() + 1) + "/" + (d.getDate());
-    meta = "　　　　　　　　　　　　【" + title + "】\n\n\n作者：" + author + "\n" + dstr + "發表於：首發SexInSex\n字数：" + essay.length + "\n\n";
+    pad = Math.floor((35 - title.length - 2) / 2) + 1;
+    console.log(pad);
+    meta = Array(pad).join('　') + ("【" + title + "】\n\n\n作者：" + author + "\n" + dstr + "發表於：首發SexInSex\n字数：" + essay.length + "\n\n");
     content = "";
     ref = essay.split('\n');
     for (k = 0, len = ref.length; k < len; k++) {
@@ -73,14 +75,15 @@
       }
       content += '\n';
     }
+    console.log(TongWen.s2t);
     if (simplified) {
-      meta = toSimp(meta);
+      meta = TongWen.convert(meta, "simplified");
     }
     if (full) {
       meta = toFull(meta);
     }
     if (simplified) {
-      content = toSimp(content);
+      content = TongWen.convert(content, "simplified");
     }
     content = toFull(content);
     content = formal(content);
