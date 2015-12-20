@@ -85,7 +85,9 @@
     if (simplified) {
       content = TongWen.convert(content, "simplified");
     }
-    content = toFull(content);
+    if (full) {
+      content = toFull(content);
+    }
     content = formal(content);
     return document.getElementById('result_text').value = meta + content;
   };

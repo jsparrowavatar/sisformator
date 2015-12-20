@@ -56,7 +56,7 @@ reformat = ->
     meta = TongWen.convert(meta, "simplified") if simplified
     meta = toFull(meta) if full
     content = TongWen.convert(content, "simplified") if simplified
-    content = toFull(content)
+    content = toFull(content) if full
     content = formal(content)
     document.getElementById('result_text').value = (meta+content)
 
